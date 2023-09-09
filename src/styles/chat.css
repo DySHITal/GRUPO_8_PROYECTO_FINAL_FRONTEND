@@ -1,0 +1,105 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 62.5%;
+    font-family: monospace;
+}
+
+.main{
+    height: 100vh;
+    width: 100vw;
+    background-color: #835cef;
+    display: flex;
+}
+
+.sidebar{
+    height: 100vh;
+    width: 10%;
+    background-color: #3e15ae;
+    display: flex;
+    justify-content: center;
+}
+
+.icono{
+    width: 90em;
+    height: 90em;
+    padding: 15em;
+    transition: .5s ease-in-out;
+}
+
+.section{
+    height: 100vh;
+    width: 20%;
+}
+
+.msgs{
+    height: 90vh;
+    background-color: #3d218a;
+}
+
+.user{
+    height: 10vh;
+    background-color: #1a132e;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.user > h2{
+    font-size: 30em;
+    color: bisque;
+}
+
+.screen{
+    background-image: url(../assets/images/vacio.jpg);
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: multiply;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.screen > p{
+    font-size: 20em;
+    color: bisque;
+}
+
+.logout{
+    text-decoration: none;
+    position: absolute;
+    font-size: 10em;
+    bottom: 10px;
+    color: bisque;
+}
+
+.hover:hover{
+    cursor: pointer;
+    font-size: .9em;
+}
+
+#container_canal {
+    display: none;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+}
+
+.canal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+}
+
+.canal > h5{
+    color:bisque;
+    font-size: 20em;
+}
+
+.canal_img {
+    max-width: 150em;
+    max-height: 150em;
+}

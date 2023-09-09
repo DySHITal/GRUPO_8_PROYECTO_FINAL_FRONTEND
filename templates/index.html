@@ -2,25 +2,51 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="16x16"  href="./src/assets/images/favicon.ico">
-    <title>Tertulia | Iniciar Sesión</title>
-    <link rel="stylesheet" href="src\styles\estilos.css">
+    <title>Tertulia</title>
+    <link rel="stylesheet" href="/src/styles/login.css">
 </head>
 <body>
-    <div class="contenedor">
-        <img src="./src/assets/images/Logo - noche.png" alt="">
-        <h1>Iniciar Sesión</h1>
-        <form action="" method="POST">
-            <label for="nombre_usuario">Nombre de Usuario:</label>
-            <input type="text" id="nombre_usuario" name="nombre_usuario" required>
-
-            <label for="contrasena">Contraseña:</label>
-            <input type="password" id="contrasena" name="contrasena" required>
-
-            <button type="submit">Iniciar Sesión</button>
-        </form>
-        <p>¿Eres nuevo? <a href="registro.html">Regístrate aquí</a></p>
-    </div>
+    <header>
+        <h1 class="titulo">Tertulia</h1>
+    </header>
+    <main>
+        <section class="gral">
+            <form id="'loginForm">             
+                <div class="form">
+                    <h2>Inicio de Sesión</h2>
+                    <div class="row100">
+                        <div class="col">
+                            <div class="inputBox">
+                                <input type="email" name="email" id="email" required>
+                                <span class="text">Correo Electrónico</span>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="inputBox">
+                                <input type="password" name="password" id="password" required>
+                                <span class="text">Contraseña</span>
+                                <span class="line"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row100">
+                        <div class="col">
+                            <input type="submit" value="Confirmar">
+                        </div>
+                    </div>
+                    <div class="row100">
+                        <div class="col">
+                            <p class="link">¿No tienes una cuenta?<a class= "link" href="/templates/registro.html">Registrate</a></p>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </main>
+    <div id="message"></div>
+    <script src="../scripts/login.js"></script>
 </body>
 </html>

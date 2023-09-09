@@ -2,62 +2,70 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" sizes="16x16"  href="./src/assets/images/favicon.ico">
-    <link rel="stylesheet" href="src\styles\estilos.css">
-    <title>Tertulia | Una reunion informal</title>
+    <title>Tertulia</title>
+    <link rel="stylesheet" href="../src/styles/chat.css">
 </head>
 <body>
-    <header>
-        <img src="./src/assets/images/Logo - noche.png" alt="">
-        <h1>Tertulia</h1>
-        <!-- Agrega elementos de navegación, perfil de usuario -->
-
-    </header>
-
-    <!-- Contenido principal -->
-    <main>
-        <!-- Columna de servidores -->
-        <div class="columna-servidores">
-            <h2>Servidores</h2>
-            <!-- Lista de servidores y botón para crear un nuevo servidor -->
+    <div class="main">
+        <div class="sidebar">
             <ul>
-                <li>Servidor 1</li>
-                <li>Servidor 2</li>
-                <!-- Agrega más servidores aquí -->
+                <li><img class="icono hover" id="add" src="../src/assets/images/Añadir_canal.png" alt=""></li>
+                <li><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt=""></li>
             </ul>
-            <button>Crear Nuevo Servidor</button>
+            <button id="logout">Salirt</button>
         </div>
-
-        <!-- Columna de canales -->
-        <div class="columna-canales">
-            <h2>Canales</h2>
-            <!-- Lista de canales del servidor seleccionado y botón para crear un nuevo canal -->
-            <ul>
-                <li>Canal 1</li>
-                <li>Canal 2</li>
-                <!-- Agrega más canales aquí -->
-            </ul>
-            <button>Crear Nuevo Canal</button>
+        <div class="section">
+            <div class="msgs"></div>
+            <div class="user">
+                <img src="../src/assets/images/user_default.png" alt="" class="icono">
+                <h2>{{username}}</h2>
+            </div>
         </div>
-
-        <!-- Columna de mensajes -->
-        <div class="columna-mensajes">
-            <h2>Mensajes</h2>
-            <!-- Lista de mensajes del chat del canal seleccionado y cuadro de texto para escribir nuevos mensajes -->
-            <ul>
-                <li>Usuario 1: Hola, ¿cómo están?</li>
-                <li>Usuario 2: ¡Hola! Estamos bien, gracias.</li>
-                <!-- Agrega más mensajes aquí -->
-            </ul>
-            <textarea placeholder="Escribe un mensaje..."></textarea>
+        <div class="screen">
+            <div id="container_canal">
+                <div class="canal">
+                    <img src="../src/assets/images/canales/literatura.png" alt="channel" class="canal_img">
+                    <h5>Literatura Fantástica</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/pelicula.png" alt="channel" class="canal_img">
+                    <h5>Locura <br>
+                    Cinematográfica</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/viajes.png" alt="channel" class="canal_img">
+                    <h5>Relatos de <br>
+                    Viajes</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/salud.png" alt="channel" class="canal_img">
+                    <h5>Bienestar y <br>
+                    Salud</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/consola.png" alt="channel" class="canal_img">
+                    <h5>Central de <br>
+                    Juegos</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/deportes.png" alt="channel" class="canal_img">
+                    <h5>Fanáticos del <br>
+                    Deporte</h5>
+                </div>
+                <div class="canal">
+                    <img src="../src/assets/images/canales/musica.png" alt="channel" class="canal_img">
+                    <h5>Caos <br>
+                    Musical</h5>
+                </div>
+            </div>
+            <p id="empty">Aún no te has unido a un servidor <br>
+                Intenta buscar uno o crea uno propio</p>
         </div>
-    </main>
-
-    <!-- Pie de página (opcional) -->
-    <footer>
-        <!-- Agrega contenido del pie de página aquí -->
-    </footer>
-    
+    </div>
+    <div id="message"></div>
+    <script src="../scripts/channels.js"></script>
+    <script src="../scripts/logout.js"></script>
 </body>
 </html>
