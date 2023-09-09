@@ -1,0 +1,12 @@
+.contenedor {
+    border-radius: 31px 31px 31px 31px;
+    -moz-border-radius: 31px 31px 31px 31px;
+    -webkit-border-radius: 31px 31px 31px 31px;
+    border: 4px outset #000000;
+    text-align: center;
+    margin: 20px;
+    padding: 20px;
+}
+form {
+    display: block;
+}
