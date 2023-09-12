@@ -12,7 +12,7 @@
         <div class="sidebar">
             <ul>
                 <li><img class="icono hover" id="add" src="../src/assets/images/Añadir_canal.png" alt=""></li>
-                
+
                 <li><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt=""></li>
             </ul>
             <button id="logout">Salirt</button>
@@ -65,6 +65,21 @@
             <p id="empty">Aún no te has unido a un servidor <br>
                 Intenta buscar uno o crea uno propio</p>
         </div>
+        <!--REGISTRO DE SERVIDOR-->
+        <div class="overlay" id="overlay">
+			<div class="popup" id="popup">
+				<a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="">x</i></a>
+				<h3>CREAR UN SERVIDOR</h3>
+				<h4>Crea tu reunion</h4>
+				<form action="">
+					<div class="contenedor-inputs">
+						<input type="text" placeholder="Nombre del servidor">
+						<input type="email" placeholder="Descripcion">
+					</div>
+					<input type="submit" class="btn-submit" value="Crear">
+				</form>
+			</div>
+		</div>
     </div>
     <div id="message"></div>
     <script src="../scripts/channels.js"></script>
