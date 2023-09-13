@@ -5,8 +5,8 @@ document.getElementById("loginForm").addEventListener("submit", function (event)
 
 function login() {
     const data = {
-        username: document.getElementById("email").value,
-        password: document.getElementById("password").value,
+        correo: document.getElementById("email").value,
+        contrasena: document.getElementById("password").value,
     };
 
     fetch("http://127.0.0.1:5000/login", {
@@ -19,13 +19,12 @@ function login() {
     })
     .then(response => {
         if (response.status === 200) {
-            // Redirect to profile page if login is successful
             return response.json().then(data => {
                 window.location.href = "vistaprincipal.html";
             });
         } else {
             return response.json().then(data => {
-                document.getElementById("message").innerHTML = data.message;
+                document.getElementById("message").innerHTML = data.msg;
             });
         }
     })

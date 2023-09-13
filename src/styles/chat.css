@@ -21,6 +21,21 @@
     justify-content: center;
 }
 
+#logout{
+    font-size: 10em;
+    height: 1em;
+    position: absolute;
+    bottom: 0.1em;
+    background: #45f3ff;
+    border-radius: 0.1em;
+    transition: .5s ease-in-out;
+}
+
+#logout:hover{
+    cursor: pointer;
+    background-color: #41d0db ;
+}
+
 .icono{
     width: 90em;
     height: 90em;
@@ -102,4 +117,5 @@
 .canal_img {
     max-width: 150em;
     max-height: 150em;
+    cursor: pointer;
 }
