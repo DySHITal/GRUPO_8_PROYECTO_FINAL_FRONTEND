@@ -8,17 +8,48 @@ var	overlay = document.getElementById('overlay'),
 const sideBar = document.querySelector(".sidebar ul");
 let visible = false;
 
-exChannel.addEventListener('click', () => {
-    if(visible){
-        parrafo.style.display = 'block'
-        containerServidor.style.display = 'none';
-    } else{
-        containerServidor.style.display = 'grid';
-        cargarServidoresExplorar //se cargan los servidores a seleccionar
-        parrafo.style.display = 'none'
-    }
-    visible = !visible
+window.addEventListener('load', function(){
+    getAlias();
 })
+
+
+let servidoresCargados = false;
+
+    exChannel.addEventListener('click', () => {
+        if (!servidoresCargados) {
+            cargarServidoresExplorar();
+            servidoresCargados = true; // Marcamos que los servidores ya se cargaron
+        }
+        if(visible){
+            parrafo.style.display = 'block'
+            containerCanal.style.display = 'none';
+        } else{
+            containerCanal.style.display = 'grid';
+            parrafo.style.display = 'none'
+        }
+        visible = !visible
+    });
+
+function getAlias() {
+    fetch('http://127.0.0.1:5000/alias',{
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if(response.status === 200) {
+            return response.json().then(data => {
+                document.getElementById('alias').innerText = data.alias;
+            });
+        } else {
+            return response.json().then(data => {
+                document.getElementById('message').innerHTML = data.msg;
+            });
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').innerHTML = 'An error ocurred.';
+    });
+}
 
 //Crear servidores
 addChannel.addEventListener('click', function(){
@@ -33,65 +64,85 @@ btnCerrarPopup.addEventListener('click', function(e){
 });
 
 //Cargar servidores
-function cargarServidoresExplorar(servidor) {
-    // fetch('/cargar_servidores')  //NOTA: DEBO OBTENER ID de canal o con nombre de servidor es suficinte?
-    //                              //asi como tambien el nombre del servidor,  src de la imagen
-    //     .then(response => response.json())
-    //     .then(data => {
-    //         // Maneja los datos de los servidores
-            // const servidores = data.servidores;
-
-            // servidores.forEach(servidor => {
-                const nombreServidor = servidor.nombre;
-                const direccionImagen = servidor.imagen;
+function cargarServidoresExplorar() {
+    fetch('http://127.0.0.1:5000/cargar_servidores', {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                // Maneja los datos de los servidores
+                const servidores = data.nombre_servidor;
+                const containerServidor = document.getElementById('container_servidor');
+    
+                servidores.forEach(servidor => {
+                const nombreServidor = servidor; // Nombre del servidor
                 const servidorElement = document.createElement('div');
-                const imagenServidor = document.createElement('img');
                 servidorElement.className = 'servidor';
-                servidorElement.setAttribute('data-nombre-servidor', nombreServidor);
-                servidorElement.textContent = nombreServidor;
-                imagenServidor.src=direccionImagen;
-
-                // Agrega el servidor al DOM, por ejemplo, a un contenedor div con id="server-list"
+                const h5 = document.createElement('h5');
+                h5.textContent = nombreServidor;
+                servidorElement.appendChild(h5);
+                // Agrega el servidor al DOM, por ejemplo, a un contenedor div con id="container_canal"
                 containerServidor.appendChild(servidorElement);
-            // });
-        // })
-        // .catch(error => {
-        //     console.error('Error al cargar los servidores:', error);
-        // });
+                });
+            });
+        } else {
+            return response.json().then(data => {
+                document.getElementById('message').innerHTML = data.msg;
+            });
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').innerHTML = 'An error occurred.';
+    });
 }
+
 
 
 //SE CARGAN SERVIDORES A SIDEBAR
 function agregarServidorAlSidebar(servidor) {
-    // Crea un elemento de servidor en formato HTML deseado
-    const servidorElement = document.createElement("li");
-    servidorElement.className = "tooltip";
-
-    // Crea la imagen del servidor
-    const imagenServidor = document.createElement("img");
-    imagenServidor.className = "icono hover";
-    imagenServidor.src = servidor.imagen; 
-
-    // Crea el elemento del tooltip
-    const tooltipElement = document.createElement("span");
-    tooltipElement.className = "tooltiptext";
-    tooltipElement.textContent = servidor.nombre; // Reemplaza con la descripción del servidor
-
-    // Agragamos al elemento de servidor
-    servidorElement.appendChild(imagenServidor);
-    servidorElement.appendChild(tooltipElement);
+    fetch('http://127.0.0.1:5000/servidores_del_usuario', {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                // Maneja los datos de los servidores
+                const servidores = data;
     
-    sideBar.appendChild(servidorElement);
-}
+             servidores.forEach(servidor => {
+    
+            // Crea un elemento de servidor en formato li
+              const servidorElement = document.createElement("li");
+              servidorElement.className = "tooltip";
 
-//DATOS DE PRUEBA
-// Datos ficticios de servidores (reemplaza esto con los datos reales de tu fetch)
-const servidor1 = { nombre: "Servidor 1", imagen: "../src/assets/images/canales/consola.png" };
-const servidor2 = { nombre: "Servidor 2", imagen: "../src/assets/images/canales/musica.png" };
+            // Crea la imagen del servidor
+              const imagenServidor = document.createElement("img");
+              imagenServidor.className = "icono hover";
+              imagenServidor.src = servidor.imagen; 
 
-// Agrega los servidores al DOM utilizando la función
-agregarServidorAlSidebar(servidor1);
-agregarServidorAlSidebar(servidor2);
+           // Crea el elemento del tooltip
+              const tooltipElement = document.createElement("span");
+              tooltipElement.className = "tooltiptext";
+              tooltipElement.textContent = servidor.nombre; 
 
-cargarServidoresExplorar(servidor1);
-cargarServidoresExplorar(servidor2);
+           // Agragamos al elemento de servidor
+              servidorElement.appendChild(imagenServidor);
+             servidorElement.appendChild(tooltipElement);
+    
+             sideBar.appendChild(servidorElement);
+            });
+        });
+        } else {
+            return response.json().then(data => {
+            document.getElementById('message').innerHTML = data.msg;
+        });
+        }
+        })
+        .catch(error => {
+        document.getElementById('message').innerHTML = 'An error occurred.';
+        });
+        }; 
+
