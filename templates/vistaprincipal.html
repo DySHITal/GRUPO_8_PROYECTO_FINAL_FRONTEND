@@ -11,14 +11,21 @@
     <div class="main">
         <div class="sidebar">
             <ul>
-                <li><img class="icono hover" id="add" src="../src/assets/images/Añadir_canal.png" alt=""></li>
+                <li class="tooltip"><img class="icono hover " id="add" src="../src/assets/images/Añadir_canal.png" alt="">
+                    <span class="tooltiptext">Crear nuevo Servidor</span>
+                  </li>
 
-                <li><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt=""></li>
+                <li class="tooltip"><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt="">
+                    <span class="tooltiptext">Explorar Servidores</span>
+                  </li>
             </ul>
             <button id="logout">Salirt</button>
         </div>
         <div class="section ">
+            <!-- CARGA DE CANALES DE CHAT -->
             <div class="msgs"></div>
+
+            <!-- CARGA DE USUARIO -->
             <div class="user">
                 <img src="../src/assets/images/user_default.png" alt="" class="icono">
                 <h2>{{username}}</h2>
@@ -27,36 +34,36 @@
         <div class="screen">
             <div id="container_servidor"> 
                 
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/literatura.png" alt="channel" class="canal_img">
                     <h5>Literatura Fantástica</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/pelicula.png" alt="channel" class="canal_img">
                     <h5>Locura <br>
                     Cinematográfica</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/viajes.png" alt="channel" class="canal_img">
                     <h5>Relatos de <br>
                     Viajes</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/salud.png" alt="channel" class="canal_img">
                     <h5>Bienestar y <br>
                     Salud</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/consola.png" alt="channel" class="canal_img">
                     <h5>Central de <br>
                     Juegos</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/deportes.png" alt="channel" class="canal_img">
                     <h5>Fanáticos del <br>
                     Deporte</h5>
                 </div>
-                <div class="canal">
+                <div class="servidor">
                     <img src="../src/assets/images/canales/musica.png" alt="channel" class="canal_img">
                     <h5>Caos <br>
                     Musical</h5>
