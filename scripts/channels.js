@@ -117,6 +117,7 @@ function agregarServidorAlSidebar(servidor) {
             // Crea un elemento de servidor en formato li
               const servidorElement = document.createElement("li");
               servidorElement.className = "tooltip";
+              servidorElement.id = servidor.id;
 
             // Crea la imagen del servidor
               const imagenServidor = document.createElement("img");
@@ -145,4 +146,19 @@ function agregarServidorAlSidebar(servidor) {
         document.getElementById('message').innerHTML = 'An error occurred.';
         });
         }; 
+    //FUNCION PARA MANIPULAR LOS CICKS EN LAS LISTAS
+function manejarClicEnLista(event) {
+    const elementoClicado = event.target;
+    const id = elementoClicado.id
+    
+    return id
+}
+
+// const lista = document.getElementById("miLista");
+// lista.addEventListener("click", manejarClicEnLista);
+
+    //SE CARGAN LOS CANALES DE UN SERVIDOR AL HACER CLICK EN UN SERVIDOR sideBar
+sideBar.addEventListener("click", manejarClicEnLista);
+    //SE CARGAN LOS MENSAJES AL HACER CLICK EN UN CANAL
+const msgs = document.querySelector(".msgs ul");
 
