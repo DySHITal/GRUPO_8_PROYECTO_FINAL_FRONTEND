@@ -38,6 +38,12 @@
     background-color: #3d218a;
 }
 
+.msgs > h5{
+    font-size: 20em;
+    margin-left: 1em;
+    color: rgb(211, 177, 135);
+}
+
 .user{
     height: 10vh;
     background-color: #1a132e;
@@ -93,6 +99,7 @@
     align-items: center;
     text-align: center;
     padding: 10px;
+    cursor: pointer;
 }
 
 .canal > h5{
