@@ -8,6 +8,7 @@ const overlay = document.getElementById('overlay'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup');
 window.addEventListener('load', function(){
     getAlias();
+    agregarServidorAlSidebar();
 })
 
 
@@ -62,6 +63,43 @@ btnCerrarPopup.addEventListener('click', function(e){
 	overlay.classList.remove('active');
 	popup.classList.remove('active');
 });
+
+
+// //funcion crear servidores
+// function crearServidor() {
+//     const data = {
+//         server_name: document.getElementById("server_name").value,
+//         server_descripcion: document.getElementById("server_descripcion").value,
+//     };
+
+//     fetch("http://127.0.0.1:5000/crear_server", {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(data),
+//         credentials: 'include'
+//     })
+//     .then(response => {
+//         if (response.status === 200) {
+//             return response.json().then(data => {
+//                 window.location.href = "vistaprincipal.html";
+//             });
+//         } else {
+//             return response.json().then(data => {
+//                 document.getElementById("message").innerHTML = data.msg;
+//             });
+//         }
+//     })
+//     .catch(error => {
+//         document.getElementById("message").innerHTML = "An error occurred.";
+//     });
+// }
+
+const crearServer = document.getElementById('crearServer')
+crearServer.addEventListener('click', function(){
+       crearServidor()
+})
 
 //Cargar servidores
 function cargarServidoresExplorar() {
@@ -140,3 +178,64 @@ function cargarServidoresExplorar() {
 //         document.getElementById('message').innerHTML = 'An error occurred.';
 //     });
 // }
+//SE CARGAN SERVIDORES A SIDEBAR
+function agregarServidorAlSidebar(servidor) {
+    fetch('http://127.0.0.1:5000/servidores_del_usuario', {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                // Maneja los datos de los servidores
+                const servidores = data;
+    
+             servidores.forEach(servidor => {
+    
+            // Crea un elemento de servidor en formato li
+              const servidorElement = document.createElement("li");
+              servidorElement.className = "tooltip";
+              servidorElement.id = servidor.id;
+
+            // Crea la imagen del servidor
+              const imagenServidor = document.createElement("img");
+              imagenServidor.className = "icono hover";
+              imagenServidor.src = servidor.imagen; 
+
+           // Crea el elemento del tooltip
+              const tooltipElement = document.createElement("span");
+              tooltipElement.className = "tooltiptext";
+              tooltipElement.textContent = servidor.nombre; 
+
+           // Agragamos al elemento de servidor
+              servidorElement.appendChild(imagenServidor);
+             servidorElement.appendChild(tooltipElement);
+    
+             sideBar.appendChild(servidorElement);
+            });
+        });
+        } else {
+            return response.json().then(data => {
+            document.getElementById('message').innerHTML = data.msg;
+        });
+        }
+        })
+        .catch(error => {
+        document.getElementById('message').innerHTML = 'An error occurred.';
+        });
+        }; 
+    //FUNCION PARA MANIPULAR LOS CICKS EN LAS LISTAS
+function manejarClicEnLista(event) {
+    const elementoClicado = event.target;
+    const id = elementoClicado.id
+    
+    return id
+}
+
+// const lista = document.getElementById("miLista");
+// lista.addEventListener("click", manejarClicEnLista);
+
+    //SE CARGAN LOS CANALES DE UN SERVIDOR AL HACER CLICK EN UN SERVIDOR sideBar
+sideBar.addEventListener("click", manejarClicEnLista);
+    //SE CARGAN LOS MENSAJES AL HACER CLICK EN UN CANAL
+const msgs = document.querySelector(".msgs ul");

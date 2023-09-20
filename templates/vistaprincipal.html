@@ -11,9 +11,14 @@
     <div class="main">
         <div class="sidebar">
             <ul>
-                <li><img class="icono hover" id="add" src="../src/assets/images/Añadir_canal.png" alt=""></li>
-                <li><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt=""></li>
-            </ul>
+                <li class="tooltip" id=""><img class="icono hover " id="add" src="../src/assets/images/Añadir_canal.png" alt="">
+                    <span class="tooltiptext">Crear nuevo Servidor</span>
+                  </li>
+
+                <li class="tooltip" id=""><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt="">
+                    <span class="tooltiptext">Explorar Servidores</span>
+                  </li>
+           </ul>
             <div id="user_servers"></div>
             <div id="logout">Salir</div>
         </div>
@@ -40,10 +45,10 @@
             <h4>Crea tu reunion</h4>
             <form action="">
                 <div class="contenedor-inputs">
-                    <input type="text" placeholder="Nombre del servidor">
-                    <input type="text" placeholder="Descripcion">
+                    <input type="text" placeholder="Nombre del servidor" id="server_name">
+                    <input type="text" placeholder="Descripcion" id="server_descripcion">
                 </div>
-                <input type="submit" class="btn-submit" value="Crear">
+                <input type="submit" class="btn-submit" id="crearServer" value="Crear">
             </form>
         </div>
     </div>
