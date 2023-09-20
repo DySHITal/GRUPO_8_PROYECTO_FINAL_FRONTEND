@@ -21,6 +21,7 @@
             <div class="msgs">
                 <h5>Canales</h5>
             </div>
+            <div id="canales"></div>
             <div class="user">
                 <img src="../src/assets/images/user_default.png" alt="" class="icono">
                 <h2 id="alias"></h2>
@@ -28,6 +29,13 @@
         </div>
         <div class="screen">
             <div id="container_canal"></div>
+            <div class="chat-container">
+                <div class="chatbox" id="chatbox"></div>
+                <div class="msj-flex">
+                    <input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí...">
+                    <button id="enviar">enviar</button>
+                </div>
+            </div>
             <p id="empty">Aún no te has unido a un servidor <br>
                 Intenta buscar uno o crea uno propio</p>
         </div>
@@ -51,5 +59,6 @@
     <div id="message"></div>
     <script src="../scripts/channels.js"></script>
     <script src="../scripts/logout.js"></script>
+    <script src="../scripts/chat.js"></script>
 </body>
 </html>
