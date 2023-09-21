@@ -6,13 +6,15 @@ const addServer = document.getElementsByClassName('canal');
 const overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup');
+
+//Carga al acceder a la pagina    
 window.addEventListener('load', function(){
     getAlias();
     agregarServidorAlSidebar();
 })
 
 
-
+//Cargar explora
 let visible = false;
 let servidoresCargados = false;
 
@@ -142,70 +144,38 @@ function cargarServidoresExplorar() {
     });
 }
 
-// addServer.addEventListener('click', () => {
-//     cargarsidebar()
-// })
 
-// function cargarsidebar() {
-//     fetch('http://127.0.0.1:5000/servidores_del_usuario', {
-//         method: 'GET',
-//         credentials: 'include'
-//     }) //Recibo los servidores a los que esta registrado el cliente
-//     .then(response => {
-//         if (response.status === 200){
-//             return response.json().then(data => {
-//                 const servidores = data.servidores;
-//                 const containerServidor = document.getElementById('user_servers');
-//                 const serverId = data.id
-
-//                 servidores.forEach(servidor => {
-//                     const rutaImagen = `../src/assets/images/canales/${nombreServidor}.png`;
-//                     const servidorElement = document.createElement('div');
-//                     const imagenServidor = document.createElement('img');
-//                     servidorElement.className = 'servidor';
-//                     servidorElement.setAttribute('data-nombre-servidor', nombreServidor);
-//                     imagenServidor.src = rutaImagen
-//                     containerServidor.appendChild(servidorElement);
-//                 });
-//             });
-//         } else {
-//             return response.json().then(data => {
-//                 document.getElementById('message').innerHTML = data.msg;
-//             });
-//         }
-//     })
-//     .catch(error => {
-//         document.getElementById('message').innerHTML = 'An error occurred.';
-//     });
-// }
 //SE CARGAN SERVIDORES A SIDEBAR
-function agregarServidorAlSidebar(servidor) {
+function agregarServidorAlSidebar() {
     fetch('http://127.0.0.1:5000/servidores_del_usuario', {
         method: 'GET',
         credentials: 'include'
     })
     .then(response => {
         if (response.status === 200) {
+            console.log("Al 200")
             return response.json().then(data => {
                 // Maneja los datos de los servidores
-                const servidores = data;
-    
+                const servidores = data.nombre_servidor;
+             console.log(servidores)
              servidores.forEach(servidor => {
-    
+             
+                console.log(servidor)
+                console.log(servidor[0])
             // Crea un elemento de servidor en formato li
               const servidorElement = document.createElement("li");
               servidorElement.className = "tooltip";
-              servidorElement.id = servidor.id;
+              servidorElement.id = servidor[0];
 
             // Crea la imagen del servidor
               const imagenServidor = document.createElement("img");
               imagenServidor.className = "icono hover";
-              imagenServidor.src = servidor.imagen; 
+              imagenServidor.src = `../src/assets/images/canales/${servidor[0]}.png`; 
 
            // Crea el elemento del tooltip
               const tooltipElement = document.createElement("span");
               tooltipElement.className = "tooltiptext";
-              tooltipElement.textContent = servidor.nombre; 
+              tooltipElement.textContent = servidor[0]; 
 
            // Agragamos al elemento de servidor
               servidorElement.appendChild(imagenServidor);
@@ -236,6 +206,6 @@ function manejarClicEnLista(event) {
 // lista.addEventListener("click", manejarClicEnLista);
 
     //SE CARGAN LOS CANALES DE UN SERVIDOR AL HACER CLICK EN UN SERVIDOR sideBar
-sideBar.addEventListener("click", manejarClicEnLista);
-    //SE CARGAN LOS MENSAJES AL HACER CLICK EN UN CANAL
-const msgs = document.querySelector(".msgs ul");
+// sideBar.addEventListener("click", manejarClicEnLista);
+//     //SE CARGAN LOS MENSAJES AL HACER CLICK EN UN CANAL
+// const msgs = document.querySelector(".msgs ul");
