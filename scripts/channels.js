@@ -158,7 +158,7 @@ function agregarServidorAlSidebar() {
         
                 // Crea un elemento de servidor en formato li
                 const servidorElement = document.createElement("li");
-                servidorElement.className = "tooltip";
+                servidorElement.className = "tooltip canales";
                 servidorElement.id = servidor;
 
                 // Crea la imagen del servidor
@@ -188,18 +188,44 @@ function agregarServidorAlSidebar() {
         document.getElementById('message').innerHTML = 'An error occurred.';
         });
         }; 
-//     //FUNCION PARA MANIPULAR LOS CICKS EN LAS LISTAS
-// function manejarClicEnLista(event) {
-//     const elementoClicado = event.target;
-//     const id = elementoClicado.id
-    
-//     return id
-// }
 
-// // const lista = document.getElementById("miLista");
-// // lista.addEventListener("click", manejarClicEnLista);
+// Abrir servidor - cargar canales
+let liElements = document.getElementsByClassName('canales');
+Array.from(liElements).forEach(function(li){
+    li.addEventListener('click', function(){
+        li_id = li.id
+        cargarCanales(li_id);
+    });
+});
 
-//     //SE CARGAN LOS CANALES DE UN SERVIDOR AL HACER CLICK EN UN SERVIDOR sideBar
-// sideBar.addEventListener("click", manejarClicEnLista);
-//     //SE CARGAN LOS MENSAJES AL HACER CLICK EN UN CANAL
-// const msgs = document.querySelector(".msgs ul");
+function cargarCanales(li_id){
+    fetch(`http://127.0.0.1:5000/cargar_canales/${li_id}`, {
+        method: 'GET',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                const canales = data.nombre_canales;
+                const containerCanal = document.getElementById('canales');
+                canales.forEach(canal => {
+                    const nombreCanal = canal;
+                    const canalElement = document.createElement('div');
+                    canalElement.className = 'msgs';
+                    canalElement.id = canal;
+                    const h5 = document.createElement('h5');
+                    h5.textContent = nombreCanal;
+                    canalElement.appendChild(h5);
+                    containerCanal.appendChild(canalElement);
+                })
+        });
+        } else {
+            return response.json().then(data => {
+            document.getElementById('message').innerHTML = data.msg;
+        });
+        }
+        })
+        .catch(error => {
+        document.getElementById('message').innerHTML = 'An error occurred.';
+        });
+}
