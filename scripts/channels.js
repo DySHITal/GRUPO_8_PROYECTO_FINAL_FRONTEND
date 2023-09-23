@@ -158,7 +158,7 @@ function agregarServidorAlSidebar() {
         
                 // Crea un elemento de servidor en formato li
                 const servidorElement = document.createElement("li");
-                servidorElement.className = "tooltip canales";
+                servidorElement.className = "tooltip servidor";
                 servidorElement.id = servidor;
 
                 // Crea la imagen del servidor
@@ -166,37 +166,60 @@ function agregarServidorAlSidebar() {
                 imagenServidor.className = "icono hover";
                 imagenServidor.src = `../src/assets/images/canales/${servidor}.png`; 
 
-            // Crea el elemento del tooltip
+                // Crea el elemento del tooltip
                 const tooltipElement = document.createElement("span");
                 tooltipElement.className = "tooltiptext";
                 tooltipElement.textContent = servidor; 
 
-            // Agragamos al elemento de servidor
+                // Agragamos al elemento de servidor
                 servidorElement.appendChild(imagenServidor);
                 servidorElement.appendChild(tooltipElement);
         
                 sideBar.appendChild(servidorElement);
+                
+                // Agregar evento de clic solo si aún no se ha agregado
+                if (!servidorElement.hasEventListeners) {
+                    servidorElement.addEventListener('click', function(event) {
+                        console.log("click");
+                        // let li_id = event.target.id;
+                        console.log(servidorElement.id);
+                        cargarCanales(servidorElement.id);
+                    });
+                    servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
+                }
                 });
-        });
+
+                // // Agregar evento de clic fuera del bucle forEach
+                // sideBar.addEventListener('click', function(event) {
+                //     if (event.target.classList.contains('servidor')) {
+                //         console.log("click");
+                //         let li_id = event.target.id;
+                //         console.log(li_id);
+                //         cargarCanales(li_id);
+                //     }
+                // });
+            });
         } else {
             return response.json().then(data => {
-            document.getElementById('message').innerHTML = data.msg;
-        });
+                document.getElementById('message').innerHTML = data.msg;
+            });
         }
-        })
-        .catch(error => {
+    })
+    .catch(error => {
         document.getElementById('message').innerHTML = 'An error occurred.';
-        });
-        }; 
-
-// Abrir servidor - cargar canales
-let liElements = document.getElementsByClassName('canales');
-Array.from(liElements).forEach(function(li){
-    li.addEventListener('click', function(){
-        li_id = li.id
-        cargarCanales(li_id);
     });
-});
+}
+// // Abrir servidor - cargar canales
+//     const servidores = document.getElementById('sideBar');
+//     servidores.addEventListener('click', function(event) {
+//         if (event.target.classList.contains('tooltip')) {
+//             console.log("click");
+//             let li_id = event.target.id;
+//             console.log(li_id);
+//             cargarCanales(li_id);
+//         }
+//     });
+
 
 function cargarCanales(li_id){
     fetch(`http://127.0.0.1:5000/cargar_canales/${li_id}`, {
