@@ -180,7 +180,6 @@ function agregarServidorAlSidebar() {
                 // Agregar evento de clic solo si aún no se ha agregado
                 if (!servidorElement.hasEventListeners) {
                     servidorElement.addEventListener('click', function(event) {
-                        console.log("click");
                         // let li_id = event.target.id;
                         console.log(servidorElement.id);
                         cargarCanales(servidorElement.id);
@@ -221,7 +220,7 @@ function agregarServidorAlSidebar() {
 //     });
 
 
-function cargarCanales(li_id){
+function cargarCanales(li_id) {
     fetch(`http://127.0.0.1:5000/cargar_canales/${li_id}`, {
         method: 'GET',
         credentials: 'include'
@@ -229,26 +228,29 @@ function cargarCanales(li_id){
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                const canales = data.nombre_canales;
+                const canales = data; // La respuesta ya contiene los nombres de los canales
                 const containerCanal = document.getElementById('canales');
+                containerCanal.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos canales
                 canales.forEach(canal => {
-                    const nombreCanal = canal;
+                    const nombreCanal = canal[0]; // Obtener el nombre del canal de la tupla
                     const canalElement = document.createElement('div');
                     canalElement.className = 'msgs';
-                    canalElement.id = canal;
+                    canalElement.id = nombreCanal; // Puedes usar el nombre como ID si es único
                     const h5 = document.createElement('h5');
                     h5.textContent = nombreCanal;
                     canalElement.appendChild(h5);
                     containerCanal.appendChild(canalElement);
-                })
-        });
+                });
+            });
         } else {
+            // Manejar el caso cuando la respuesta no es 200 (puede ser un error)
             return response.json().then(data => {
-            document.getElementById('message').innerHTML = data.msg;
-        });
+                document.getElementById('message').innerHTML = data.msg;
+            });
         }
-        })
-        .catch(error => {
+    })
+    .catch(error => {
+        console.error(error);
         document.getElementById('message').innerHTML = 'An error occurred.';
-        });
+    });
 }
