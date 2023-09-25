@@ -5,7 +5,8 @@ const exChannel = document.getElementById('explore'),
     addServer = document.getElementsByClassName('canal'),
     overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
-	btnCerrarPopup = document.getElementById('btn-cerrar-popup')
+	btnCerrarPopup = document.getElementById('btn-cerrar-popup'),
+    chatContainer = document.getElementById('chat-container')
 window.addEventListener('load', function(){
     getAlias();
     agregarServidorAlSidebar();
@@ -27,6 +28,7 @@ let servidoresCargados = false;
         } else{
             containerCanal.style.display = 'grid';
             parrafo.style.display = 'none'
+            chatContainer.style.display = 'none'
         }
         visible = !visible
     });
@@ -180,23 +182,11 @@ function agregarServidorAlSidebar() {
                 // Agregar evento de clic solo si aún no se ha agregado
                 if (!servidorElement.hasEventListeners) {
                     servidorElement.addEventListener('click', function(event) {
-                        // let li_id = event.target.id;
-                        console.log(servidorElement.id);
                         cargarCanales(servidorElement.id);
                     });
                     servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
                 }
                 });
-
-                // // Agregar evento de clic fuera del bucle forEach
-                // sideBar.addEventListener('click', function(event) {
-                //     if (event.target.classList.contains('servidor')) {
-                //         console.log("click");
-                //         let li_id = event.target.id;
-                //         console.log(li_id);
-                //         cargarCanales(li_id);
-                //     }
-                // });
             });
         } else {
             return response.json().then(data => {
@@ -208,17 +198,6 @@ function agregarServidorAlSidebar() {
         document.getElementById('message').innerHTML = 'An error occurred.';
     });
 }
-// // Abrir servidor - cargar canales
-//     const servidores = document.getElementById('sideBar');
-//     servidores.addEventListener('click', function(event) {
-//         if (event.target.classList.contains('tooltip')) {
-//             console.log("click");
-//             let li_id = event.target.id;
-//             console.log(li_id);
-//             cargarCanales(li_id);
-//         }
-//     });
-
 
 function cargarCanales(li_id) {
     fetch(`http://127.0.0.1:5000/cargar_canales/${li_id}`, {
@@ -228,29 +207,39 @@ function cargarCanales(li_id) {
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                const canales = data; // La respuesta ya contiene los nombres de los canales
-                const containerCanal = document.getElementById('canales');
-                containerCanal.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos canales
+                const canales = data; 
+                const contCanal = document.getElementById('canales');
+                contCanal.innerHTML = ''; // Limpiar el contenedor antes de agregar nuevos canales
                 canales.forEach(canal => {
-                    const nombreCanal = canal[0]; // Obtener el nombre del canal de la tupla
+                    const nombreCanal = canal[0]; 
                     const canalElement = document.createElement('div');
                     canalElement.className = 'msgs';
-                    canalElement.id = nombreCanal; // Puedes usar el nombre como ID si es único
+                    canalElement.id = nombreCanal;
+                    canalElement.dataset.canalId = nombreCanal;
                     const h5 = document.createElement('h5');
                     h5.textContent = nombreCanal;
                     canalElement.appendChild(h5);
-                    containerCanal.appendChild(canalElement);
+                    contCanal.appendChild(canalElement);
+
+                    if (!h5.hasEventListeners) {
+                        h5.addEventListener('click', function(event) {
+                            parrafo.style.display = 'none';
+                            containerCanal.style.display = 'none';
+                            chatContainer.style.display = 'block';
+                            loadmsgs(nombreCanal);
+                        });
+                        h5.hasEventListeners = true; // Marcar que se agregó el evento
+                        canalElement.hasEventListeners = true;
+                    }
                 });
             });
         } else {
-            // Manejar el caso cuando la respuesta no es 200 (puede ser un error)
             return response.json().then(data => {
                 document.getElementById('message').innerHTML = data.msg;
             });
         }
     })
     .catch(error => {
-        console.error(error);
         document.getElementById('message').innerHTML = 'An error occurred.';
     });
 }

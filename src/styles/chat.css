@@ -33,15 +33,22 @@
     width: 20%;
 }
 
-.msgs{
+.canales{
     height: 90vh;
     background-color: #3d218a;
 }
 
 .msgs > h5{
-    font-size: 20em;
+    padding: .3em;
+    font-size: 25em;
     margin-left: 1em;
     color: rgb(211, 177, 135);
+    cursor: pointer;
+    transition: .2s ease-in-out;
+}
+
+.msgs > h5:hover{
+    color: #5E7DE3;
 }
 
 .user{
