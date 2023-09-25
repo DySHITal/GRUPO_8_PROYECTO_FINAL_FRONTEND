@@ -9,6 +9,9 @@ enviarBtn.addEventListener('click', () => {
 function sendmsgs(){
   const canalId = document.querySelector('.msgs').dataset.canalId;
   console.log(canalId)
+  if (!mensaje) {
+    return;
+  }
   const data = {
     'mensaje': mensajeInput.value,
     'canal': canalId
@@ -25,7 +28,7 @@ function sendmsgs(){
     .then(response => {
       if (response.status === 200) {
           return response.json().then(data => {
-              loadmsgs();
+              loadmsgs(canalId);
               mensajeInput.value = '';
           });
       } else {
@@ -34,7 +37,7 @@ function sendmsgs(){
           });
       }
     })
-  .catch(error => {
+    .catch(error => {
       document.getElementById('message').innerHTML = 'An error occurred.';
   });
 }

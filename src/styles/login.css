@@ -28,6 +28,10 @@ body {
     min-height: 100vh;
 }
 
+#registro {
+    width: 30vw;
+}
+
 .form {
     width: 100%;
     padding: 20px;

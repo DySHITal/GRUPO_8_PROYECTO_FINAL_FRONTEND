@@ -131,6 +131,12 @@ function cargarServidoresExplorar() {
                     servidorElement.appendChild(h5);
                     // Agrega el servidor al DOM, por ejemplo, a un contenedor div con id="container_canal"
                     containerServidor.appendChild(servidorElement);
+                    if (!servidorElement.hasEventListeners) {
+                        servidorElement.addEventListener('click', function() {
+                            agregarServidorAlDb(nombreServidor);
+                        });
+                        servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
+                    }
                 });
             });
         } else {
@@ -142,6 +148,27 @@ function cargarServidoresExplorar() {
     .catch(error => {
         document.getElementById('message').innerHTML = 'An error occurred.';
     });
+}
+
+function agregarServidorAlDb(nombre_servidor){
+    fetch(`http://127.0.0.1:5000/registrar_db/${nombre_servidor}`, {
+        method: 'POST',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                agregarServidorAlSidebar()
+            });
+        } else {
+            return response.json().then(data => {
+                document.getElementById('message').innerHTML = data.msg;
+            });
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').innerHTML = 'An error ocurred.';
+    })
 }
 
 //SE CARGAN SERVIDORES A SIDEBAR

@@ -10,9 +10,10 @@ function register(){
         nombre: document.getElementById('nombre').value,
         apellido: document.getElementById('apellido').value,
         contrasena: document.getElementById('password').value,
-        fechas_nacimiento: document.getElementById('date').value
+        fechas_nacimiento: document.getElementById('date').value,
+        avatar: document.getElementById('avatar').value
     };
-
+    console.log(data.avatar)
     fetch("http://127.0.0.1:5000/register", {
         method: 'POST',
         headers: {
