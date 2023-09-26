@@ -7,8 +7,7 @@ enviarBtn.addEventListener('click', () => {
 });
 
 function sendmsgs(){
-  const canalId = document.querySelector('.msgs').dataset.canalId;
-  console.log(canalId)
+  const canalId = canalSeleccionado;
   if (!mensaje) {
     return;
   }

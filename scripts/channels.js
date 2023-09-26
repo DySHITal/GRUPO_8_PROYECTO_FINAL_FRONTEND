@@ -16,6 +16,7 @@ window.addEventListener('load', function(){
 
 let visible = false;
 let servidoresCargados = false;
+let canalSeleccionado;
 
     exChannel.addEventListener('click', () => {
         if (!servidoresCargados) {
@@ -158,7 +159,8 @@ function agregarServidorAlDb(nombre_servidor){
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                agregarServidorAlSidebar()
+                agregarServidorAlSidebar();
+                location.reload();
             });
         } else {
             return response.json().then(data => {
@@ -248,15 +250,15 @@ function cargarCanales(li_id) {
                     canalElement.appendChild(h5);
                     contCanal.appendChild(canalElement);
 
-                    if (!h5.hasEventListeners) {
-                        h5.addEventListener('click', function(event) {
+                    if (!canalElement.hasEventListeners) {
+                        canalElement.addEventListener('click', function(event) {
                             parrafo.style.display = 'none';
                             containerCanal.style.display = 'none';
                             chatContainer.style.display = 'block';
+                            canalSeleccionado = nombreCanal;
                             loadmsgs(nombreCanal);
                         });
-                        h5.hasEventListeners = true; // Marcar que se agregó el evento
-                        canalElement.hasEventListeners = true;
+                        canalElement.hasEventListeners = true; // Marcar que se agregó el evento
                     }
                 });
             });
