@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <link rel="icon" type="image/png" sizes="16x16"  href="../src/assets/images/favicon.ico">
     <link rel="stylesheet" href="../src/styles/estilos.css">
     <title>Tertulia | Una reunion informal</title>
@@ -12,52 +14,64 @@
         <img src="../src/assets/images/Logo - noche.png" alt="Tertulia" height="45" width="45">
         <h1>Tertulia</h1>
         <!-- Agrega elementos de navegación, perfil de usuario -->
+=======
+    <title>Tertulia</title>
+    <link rel="stylesheet" href="../src/styles/chat.css">
+</head>
+<body>
+    <div class="main">
+        <div class="sidebar">
+            <ul id="sideBar" >
+                <li class="tooltip" id=""><img class="icono hover " id="add" src="../src/assets/images/Añadir_canal.png" alt="">
+                    <span class="tooltiptext">Crear nuevo Servidor</span>
+                  </li>
+>>>>>>> frontend
 
-    </header>
-
-    <!-- Contenido principal -->
-    <main>
-        <!-- Columna de servidores -->
-        <div class="columna-servidores">
-            <h2>Servidores</h2>
-            <!-- Lista de servidores y botón para crear un nuevo servidor -->
-            <ul>
-                <li>Servidor 1</li>
-                <li>Servidor 2</li>
-                <!-- Agrega más servidores aquí -->
-            </ul>
-            <button>Crear Nuevo Servidor</button>
+                <li class="tooltip" id=""><img class="icono hover" id="explore" src="../src/assets/images/Explorar_canal.png" alt="">
+                    <span class="tooltiptext">Explorar Servidores</span>
+                  </li>
+           </ul>
+            <div id="logout">Salir</div>
         </div>
-
-        <!-- Columna de canales -->
-        <div class="columna-canales">
-            <h2>Canales</h2>
-            <!-- Lista de canales del servidor seleccionado y botón para crear un nuevo canal -->
-            <ul>
-                <li>Canal 1</li>
-                <li>Canal 2</li>
-                <!-- Agrega más canales aquí -->
-            </ul>
-            <button>Crear Nuevo Canal</button>
+        <div class="section">
+            <div class="canales" id="canales">
+            </div>
+            <div class="user">
+                <img src="../src/assets/images/user_default.png" alt="" class="icono">
+                <h2 id="alias"></h2>
+            </div>
         </div>
-
-        <!-- Columna de mensajes -->
-        <div class="columna-mensajes">
-            <h2>Mensajes</h2>
-            <!-- Lista de mensajes del chat del canal seleccionado y cuadro de texto para escribir nuevos mensajes -->
-            <ul>
-                <li>Usuario 1: Hola, ¿cómo están?</li>
-                <li>Usuario 2: ¡Hola! Estamos bien, gracias.</li>
-                <!-- Agrega más mensajes aquí -->
-            </ul>
-            <textarea placeholder="Escribe un mensaje..."></textarea>
+        <div class="screen">
+            <div id="container_canal"></div>
+            <div class="chat-container" id="chat-container">
+                <div class="chatbox" id="chatbox"></div>
+                <div class="msj-flex">
+                    <input type="text" id="mensaje" placeholder="Escribe tu mensaje aquí...">
+                    <button id="enviar">enviar</button>
+                </div>
+            </div>
+            <p id="empty">Aún no te has unido a un servidor <br>
+                Intenta buscar uno o crea uno propio</p>
         </div>
-    </main>
-
-    <!-- Pie de página (opcional) -->
-    <footer>
-        <!-- Agrega contenido del pie de página aquí -->
-    </footer>
-    
+    </div>
+    <!--REGISTRO DE SERVIDOR-->
+    <div class="overlay" id="overlay">
+        <div class="popup" id="popup">
+            <a href="#" id="btn-cerrar-popup" class="btn-cerrar-popup"><i class="">x</i></a>
+            <h3>CREAR UN SERVIDOR</h3>
+            <form id="crearServer">
+                <div class="contenedor-inputs">
+                    <input type="text" placeholder="Nombre del servidor" id="server_name">
+                    <input type="text" placeholder="Descripcion" id="server_description">
+                </div>
+                <input type="submit" class="btn-submit" value="Crear">
+            </form>
+        </div>
+    </div>
+</div>
+    <div id="message"></div>
+    <script src="../scripts/channels.js"></script>
+    <script src="../scripts/logout.js"></script>
+    <script src="../scripts/chat.js"></script>
 </body>
 </html>
