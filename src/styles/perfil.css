@@ -91,8 +91,9 @@ border: solid 2px #582488;
     .div5 { grid-area: 3 / 1 / 4 / 3; }
     
 div.conteiner{
+    background-color: #3e15ae;
     align-self: stretch;
-    border: 3px #fff dashed;
+    border: 3px #440356 dashed;
     border-radius: 14px;
     padding: 6px;
     align-items: center; 

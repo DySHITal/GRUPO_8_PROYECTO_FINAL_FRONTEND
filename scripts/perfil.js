@@ -6,7 +6,7 @@ const infoUsuario = document.getElementsByClassName('info-usuario'),
 //CARGAMOS LA INFORMACION AL ACCEDER  A LA PAGINA
 document.addEventListener('DOMContentLoaded', function () {
     // Solicitud para obtener la información del usuario
-    fetch('/ruta_de_flask_para_info_usuario', {
+    fetch('http://127.0.0.1:5000/ruta_info_usuario', {
         method: 'GET',
         credentials: 'include'
     })
@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Cargar servidores creados por el usuario
 const servidoresCreados = document.querySelector('.servidoresCreados');
 
-fetch('/ruta_de_flask_para_servidores_creados', {
+fetch('http://127.0.0.1:5000/ruta_servidores_creados', {
     method: 'GET',
     credentials: 'include'
 })
@@ -75,7 +75,7 @@ fetch('/ruta_de_flask_para_servidores_creados', {
 // Cargar últimos mensajes enviados por el usuario
 const mensajesUsuario = document.querySelector('.mensajesUsuario');
 
-fetch('/ruta_de_flask_para_mensajes_enviados', {
+fetch('http://127.0.0.1:5000/ruta_mensajes_enviados', {
     method: 'GET',
     credentials: 'include'
 })
