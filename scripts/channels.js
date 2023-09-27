@@ -71,6 +71,9 @@ const crearServer = document.getElementById('crearServer')
 crearServer.addEventListener('submit', function(e){
     e.preventDefault()
     crearServidor()
+    overlay.classList.remove('active');
+    popup.classList.remove('active');
+    
 })
 
 //funcion crear servidores
@@ -97,6 +100,7 @@ function crearServidor() {
                 document.getElementById("message").innerHTML = data.msg;
             });
         }
+        
     })
     .catch(error => {
         document.getElementById("message").innerHTML = "An error occurred.";
