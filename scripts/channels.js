@@ -6,7 +6,8 @@ const exChannel = document.getElementById('explore'),
     overlay = document.getElementById('overlay'),
 	popup = document.getElementById('popup'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup'),
-    chatContainer = document.getElementById('chat-container')
+    chatContainer = document.getElementById('chat-container'),
+    salirServidor = document.getElementById('delete-server')
 window.addEventListener('load', function(){
     getAlias();
     agregarServidorAlSidebar();
@@ -17,6 +18,7 @@ window.addEventListener('load', function(){
 let visible = false;
 let servidoresCargados = false;
 let canalSeleccionado;
+let servidorSeleccionado;
 
     exChannel.addEventListener('click', () => {
         if (!servidoresCargados) {
@@ -211,6 +213,8 @@ function agregarServidorAlSidebar() {
                 // Agregar evento de clic solo si aún no se ha agregado
                 if (!servidorElement.hasEventListeners) {
                     servidorElement.addEventListener('click', function(event) {
+                        salirServidor.style.display = 'block'
+                        servidorSeleccionado = servidor;
                         cargarCanales(servidorElement.id);
                     });
                     servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
@@ -271,4 +275,29 @@ function cargarCanales(li_id) {
     .catch(error => {
         document.getElementById('message').innerHTML = 'An error occurred.';
     });
+}
+
+salirServidor.addEventListener('click', function() {
+    deleteServerUser(servidorSeleccionado);
+})
+
+function deleteServerUser(servidorSeleccionado) {
+    fetch(`http://127.0.0.1:5000/eliminar_server/${servidorSeleccionado}`, {
+        method: 'DELETE',
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                location.reload()
+            })
+        } else {
+            return response.json().then(data => {
+                document.getElementById('message').innerHTML = data.msg;
+            })
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').innerHTML = 'An error ocurred.';
+    })
 }

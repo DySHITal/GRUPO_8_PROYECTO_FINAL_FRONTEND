@@ -38,6 +38,23 @@
     background-color: #3d218a;
 }
 
+#delete-server {
+    font-size: 18em;
+    position: absolute;
+    color: rgb(211, 177, 135);
+    top: 86%;
+    padding: 0.05em;
+    border-radius: 10px;
+    margin-left: 1em;
+    cursor: pointer;
+    transition: .2s ease-in-out;
+    display: none;
+}
+
+#delete-server:hover {
+    background-color: #5E7DE3;
+}
+
 .msgs > h5{
     padding: .3em;
     font-size: 25em;

@@ -65,6 +65,6 @@ function loadmsgs(canalSeleccionado) {
     }
     })
     .catch(error => {
-      console.error('Error al cargar los mensajes del canal:', error);
+      document.getElementById('message').innerHTML = 'An error ocurred.';
     });
 }
