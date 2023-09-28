@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(response => {
             if(response.status==200){
                 return response.json().then(data =>{
+                    console.log(data)
             // Rellena la información del usuario en el elemento HTML
             infoUsuario.innerHTML = `
                 <p><strong>Nombre:</strong> ${data.nombre}</p>
