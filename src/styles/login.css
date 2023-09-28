@@ -9,16 +9,16 @@
 body {
     margin: 0;
     padding: 0;
-    background-image: url('../assets/images/fondo_pantalla.jpg'); /* Cambia el nombre de la imagen y la extensión */
+    background-image: url('../assets/images/vacio.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
 
 .titulo{
-    font-size: 10em;
+    font-size: 30em;
     text-align: center;
-    margin-top: 2em;
+    color: bisque;
 }
 
 .gral {

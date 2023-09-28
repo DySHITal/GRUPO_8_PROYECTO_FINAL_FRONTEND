@@ -82,7 +82,7 @@
 }
 
 .screen{
-    background-image: url(../assets/images/vacio.jpg);
+    background-image: url(../assets/images/sala_gente.jpg);
     background-color: rgba(0, 0, 0, 0.6);
     background-blend-mode: multiply;
     width: 80%;
