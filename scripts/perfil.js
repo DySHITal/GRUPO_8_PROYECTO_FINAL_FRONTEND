@@ -1,6 +1,6 @@
 const infoUsuario = document.querySelector('.infousuario')
       servidoresCreados = document.querySelector('.servidoresCreados'),
-      mensajeUsuario = document.querySelector('mensajeUsuario')
+      
 
 
 //CARGAMOS LA INFORMACION AL ACCEDER  A LA PAGINA
@@ -36,7 +36,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Cargar servidores creados por el usuario
-const servidoresCreados = document.querySelector('.servidoresCreados');
+
+const servidoresCreados = document.querySelector('.servidoresCreados'); // Asegúrate de que esta referencia sea correcta
 
 fetch('http://127.0.0.1:5000/ruta_servidores_creados', {
     method: 'GET',
@@ -46,19 +47,22 @@ fetch('http://127.0.0.1:5000/ruta_servidores_creados', {
     if (response.status === 200) {
         return response.json().then(data => {
             // Rellena la lista de servidores creados por el usuario
+            console.log(data);
             servidoresCreados.innerHTML = '';
             data.servidores.forEach(servidor => {
                 const li_serv = document.createElement('li');
                 li_serv.textContent = servidor.nombre_servidor;
-                li_serv.id=servidor.id;
+                li_serv.id = servidor.id;
                 servidoresCreados.appendChild(li_serv);
-               // Agregar evento de clic solo si aún no se ha agregado
-               if (!li_serv.hasEventListeners) {
-                msj.addEventListener('dblclick', function(event) {
-                    // editarEliminarServidor(li_serv.id)
-                });
-                servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
-            } 
+
+                // Agregar evento de doble clic solo si aún no se ha agregado
+                if (!li_serv.hasEventListeners) {
+                    li_serv.addEventListener('dblclick', function(event) {
+                        // Llama a la función para editar o eliminar el servidor aquí
+                        editarEliminarServidor(li_serv.id);
+                    });
+                    li_serv.hasEventListeners = true; // Marcar que se agregó el evento
+                }
             });
         });
     } else {
@@ -72,7 +76,7 @@ fetch('http://127.0.0.1:5000/ruta_servidores_creados', {
     document.getElementById('message').innerHTML = 'An error occurred.';
 });
 
-// Cargar últimos mensajes enviados por el usuario
+// Carga los mensajes enviados por el usuario
 const mensajesUsuario = document.querySelector('.mensajesUsuario');
 
 fetch('http://127.0.0.1:5000/ruta_mensajes_enviados', {
@@ -82,21 +86,33 @@ fetch('http://127.0.0.1:5000/ruta_mensajes_enviados', {
 .then(response => {
     if (response.status === 200) {
         return response.json().then(data => {
-            // Rellena la lista de mensajes enviados por el usuario
+            // Limpia la lista de mensajes
             mensajesUsuario.innerHTML = '';
-            console.log(data)
-            data.mensajes.forEach(mensaje => {
-                const msj = document.createElement('li');
-                msj.textContent = mensaje.contenido;
-                msj.id=mensaje.id;
-                mensajesUsuario.appendChild(msj);
+            console.log(data);
 
-                // Agregar evento de clic solo si aún no se ha agregado
-                if (!msj.hasEventListeners) {
-                    msj.addEventListener('dblclick', function(event) {
-                        eliminarMensaje(msj.id);
+            data.mensajes.forEach(mensajeArray => {
+                // Crea un elemento de lista para el mensaje
+                const mensajeElement = document.createElement('li');
+
+                // Configura el contenido del mensaje
+                const mensajeContenido = document.createElement('p');
+                mensajeContenido.textContent = mensajeArray[1]; // La posición 1 contiene el mensaje
+                mensajeElement.appendChild(mensajeContenido);
+
+                // Configura la fecha del mensaje
+                const mensajeFecha = document.createElement('p');
+                mensajeFecha.textContent = mensajeArray[2]; // La posición 2 contiene la fecha
+                mensajeElement.appendChild(mensajeFecha);
+
+                // Agrega el mensaje a la lista de mensajes
+                mensajesUsuario.appendChild(mensajeElement);
+
+                // Agregar evento de doble clic solo si aún no se ha agregado
+                if (!mensajeElement.hasEventListeners) {
+                    mensajeElement.addEventListener('dblclick', function(event) {
+                        eliminarMensaje(mensajeArray[0]); // La posición 0 contiene el ID del mensaje
                     });
-                    servidorElement.hasEventListeners = true; // Marcar que se agregó el evento
+                    mensajeElement.hasEventListeners = true; // Marcar que se agregó el evento
                 }
             });
         });
@@ -108,12 +124,14 @@ fetch('http://127.0.0.1:5000/ruta_mensajes_enviados', {
 })
 .catch(error => {
     console.error('Error al cargar mensajes enviados', error);
-    document.getElementById('message').innerHTML = 'An error occurred.';
+    document.getElementById('message').innerHTML = 'Ocurrió un error.';
 });
+
 });
 
 function eliminarMensaje(mensaje_id){
-
+  console.log(mensaje_id);
 }
-
-
+function editarEliminarServidor(serv_id){
+    console.log(serv_id);
+}
