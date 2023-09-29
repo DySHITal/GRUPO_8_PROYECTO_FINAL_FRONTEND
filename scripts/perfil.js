@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 })
-    // Cargar servidores creados por el usuario
+//Cargar servidores creados por el usuario
 
 // const servidoresCreados = document.querySelector('.servidoresCreados'); // Asegúrate de que esta referencia sea correcta
 

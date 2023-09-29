@@ -98,7 +98,7 @@ function crearServidor() {
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                location.reload();
+                window.location.href = "vistaprincipal.html";
             });
         } else {
             return response.json().then(data => {
