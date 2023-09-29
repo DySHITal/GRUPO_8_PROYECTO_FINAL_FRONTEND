@@ -193,6 +193,8 @@ function agregarServidorAlSidebar() {
                 // Maneja los datos de los servidores
                 const servidores = data.nombre_servidor;
                 const sideBar = document.getElementById('sideBar');
+                if (servidores && servidores.length > 0) {
+                    parrafo.style.display = 'none';}
                 servidores.forEach(servidor => {
         
                 // Crea un elemento de servidor en formato li
