@@ -180,19 +180,16 @@ fetch(`http://127.0.0.1:5000/ruta_mensajes_enviados/${userId}`, {
             datosmensaje=data
             console.log(datosmensaje)
             // Verifica si data.mensajes es un array y tiene elementos
-            if (Array.isArray(datosmensaje.mensajes) && datosmensaje.mensajes.length > 0) {
+            if (Array.isArray(datosmensaje) && datosmensaje.length > 0) {
                 // Limpia la lista de mensajes
+                console.log(datosmensaje)
                 mensajesUsuario.innerHTML = '';
-                datosmensaje.mensajes.forEach(mensajeArray => {
-                    // Verifica si mensajeArray[1] está definido y no es una cadena vacía
-                    if (mensajeArray[1] !== undefined && mensajeArray[1] !== '') {
-                        // Muestra el mensaje predeterminado si no contiene '(esta aqui)' o '(es este)'
+                datosmensaje.forEach(mensajeArray => {
+                    console.log(mensajeArray)
+                    // Verifica si mensajeArray[1] está definido
+                    if (mensajeArray[1] !== undefined) {
                         let mensaje = mensajeArray[1];
-                        if (mensajeArray[1].includes('(esta aqui)')) {
-                            mensaje = 'Esta aquí';
-                        } else if (mensajeArray[1].includes('(es este)')) {
-                            mensaje = 'Es este';
-                        }
+                        console.log(mensaje)
             
                         // Crea un elemento de lista para el mensaje
                         const mensajeElement = document.createElement('li');
@@ -202,12 +199,12 @@ fetch(`http://127.0.0.1:5000/ruta_mensajes_enviados/${userId}`, {
                         mensajeContenido.textContent = mensaje; // La posición 1 contiene el mensaje
                         mensajeElement.appendChild(mensajeContenido);
             
-                        // Configura la fecha del mensaje
-                        const fecha = new Date(mensajeArray[2]);
-                        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                        const fechaFormateada = fecha.toLocaleDateString(undefined, options);
-                        mensajeFecha.textContent = fechaFormateada; // La posición 2 contiene la fecha
-                        mensajeElement.appendChild(mensajeFecha);
+                        // // Configura la fecha del mensaje
+                        // const fecha = new Date(mensajeArray[2]);
+                        // const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+                        // const fechaFormateada = fecha.toLocaleDateString(undefined, options);
+                        // mensajeFecha.textContent = fechaFormateada; // La posición 2 contiene la fecha
+                        // mensajeElement.appendChild(mensajeFecha);
             
                         // Agrega el mensaje a la lista de mensajes
                         mensajesUsuario.appendChild(mensajeElement);
@@ -233,7 +230,26 @@ fetch(`http://127.0.0.1:5000/ruta_mensajes_enviados/${userId}`, {
 
 function eliminarMensaje(mensaje_id){
   console.log(mensaje_id);
-};
+  fetch(`http://127.0.0.1:5000/eliminar_mensajes_enviados/${mensaje_id}`,  {
+    method: 'DELETE',
+    credentials: 'include'
+})
+.then(response => {
+    if (response.status === 200) {
+        return response.json().then(data => {
+            location.reload()
+        })
+    } else {
+        return response.json().then(data => {
+            document.getElementById('message').innerHTML = data.msg;
+        })
+    }
+})
+.catch(error => {
+    document.getElementById('message').innerHTML = 'An error ocurred.';
+})
+}
 function editarEliminarServidor(serv_id){
     console.log(serv_id);
+    
 };
