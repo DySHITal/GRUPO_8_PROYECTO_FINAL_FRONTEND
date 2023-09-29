@@ -7,7 +7,11 @@ const exChannel = document.getElementById('explore'),
 	popup = document.getElementById('popup'),
 	btnCerrarPopup = document.getElementById('btn-cerrar-popup'),
     chatContainer = document.getElementById('chat-container'),
-    salirServidor = document.getElementById('delete-server')
+    salirServidor = document.getElementById('delete-server'),
+    crearCanal = document.getElementById('crear_canal'),
+    cerrarCanal = document.getElementById('cerrar'),
+    canalPop = document.getElementById('ventana_canal'),
+    canalForm = document.getElementById('crearCanal')
 window.addEventListener('load', function(){
     getAlias();
     agregarServidorAlSidebar();
@@ -34,6 +38,7 @@ let servidorSeleccionado;
             chatContainer.style.display = 'none'
         }
         visible = !visible
+        canalPop.style.visibility = 'hidden'
     });
 
 function getAlias() {
@@ -61,6 +66,7 @@ function getAlias() {
 addChannel.addEventListener('click', function(){
 	overlay.classList.add('active');
 	popup.classList.add('active');
+    canalPop.style.visibility = 'hidden'
 });
 
 btnCerrarPopup.addEventListener('click', function(e){
@@ -92,7 +98,7 @@ function crearServidor() {
     .then(response => {
         if (response.status === 200) {
             return response.json().then(data => {
-                window.location.href = "vistaprincipal.html";
+                location.reload();
             });
         } else {
             return response.json().then(data => {
@@ -214,6 +220,7 @@ function agregarServidorAlSidebar() {
                 if (!servidorElement.hasEventListeners) {
                     servidorElement.addEventListener('click', function(event) {
                         salirServidor.style.display = 'block'
+                        crearCanal.style.visibility = 'visible'
                         servidorSeleccionado = servidor;
                         cargarCanales(servidorElement.id);
                     });
@@ -299,5 +306,47 @@ function deleteServerUser(servidorSeleccionado) {
     })
     .catch(error => {
         document.getElementById('message').innerHTML = 'An error ocurred.';
+    })
+}
+
+
+crearCanal.addEventListener('click', function() {
+    canalPop.style.visibility = 'visible'
+})
+
+cerrarCanal.addEventListener('click', function() {
+    canalPop.style.visibility = 'hidden'
+})
+
+canalForm.addEventListener('submit', function(e) {
+    e.preventDefault()
+    createChannel(servidorSeleccionado);
+})
+
+function createChannel(servidorSeleccionado) {
+    const data = {
+        nombre_canal: document.getElementById('nombre_canal').value
+    };
+    fetch(`http://127.0.0.1:5000/crear_canal/${servidorSeleccionado}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+        credentials: 'include'
+    })
+    .then(response => {
+        if (response.status === 200) {
+            return response.json().then(data => {
+                window.location.href = 'vistaprincipal.html';
+            });
+        } else {
+            return response.json().then(data => {
+                document.getElementById('message').innerHTML = data.msg;
+            });
+        }
+    })
+    .catch(error => {
+        document.getElementById('message').innerHTML = 'An error occurred.';
     })
 }

@@ -55,6 +55,18 @@
     background-color: #5E7DE3;
 }
 
+#crear_canal {
+    font-size: 18em;
+    cursor: pointer;
+    color: rgb(211, 177, 135);
+    background-color: #3d218a;
+    visibility: hidden;
+}
+
+#crear_canal:hover {
+    background-color: #5E7DE3;
+}
+
 .msgs > h5{
     padding: .3em;
     font-size: 25em;
@@ -69,7 +81,7 @@
 }
 
 .user{
-    height: 10vh;
+    height: 6%;
     background-color: #1a132e;
     display: flex;
     justify-content: space-around;
@@ -313,3 +325,37 @@
     color: rgb(255, 255, 255);
 }
 
+/* ------------------------- */
+/* POPUP CANAL */
+/* ------------------------- */
+
+#ventana_canal {
+    display: flex;
+    flex-direction: column;
+    background: #835cef;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 10em;
+    height: 5em;
+    width: 10em;
+	align-items: center;
+	justify-content: center;
+	display: flex;
+    visibility: hidden;
+}
+
+#cerrar {
+    position: absolute;
+    top: 0%;
+    right: 1%;
+    cursor: pointer;
+}
+
+.submit {
+    width: 3em;
+}
+
+.submit {
+    cursor: pointer;
+}

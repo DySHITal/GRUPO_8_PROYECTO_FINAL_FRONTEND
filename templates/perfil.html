@@ -20,7 +20,15 @@
       <!-- Encabezado -->
       <div class="div2 conteiner">
       <h1>Perfil de Usuario</h1></div>
-    
+      <div id="avatar"></div>
+      <form enctype="multipart/form-data">
+        <div class="inputBox">
+            <input type="file" accept="image/*" id="inputAvatar">
+            <label for="inputAvatar" class="text">Avatar (imagen)</label>
+            <span class="line"></span>
+        </div>
+      </form>
+
       <!-- Información del Usuario -->
       <div class="div3 conteiner">
       <h2>Información del Usuario</h2>
@@ -47,6 +55,7 @@
           <!-- Lista de mensajes enviados por el usuario -->
       </ul>  </div>
     </div> 
+    <div id="message"></div>
     <script src="../scripts/logout.js"></script>
     <script src="../scripts/perfil.js"></script>
 </body>
